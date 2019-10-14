@@ -30,11 +30,14 @@ namespace HangmanProject
                 Console.WriteLine();
                 Console.Write("\t\t\t\t");
                 display.AllPlayerGuesses();
+                display.DisplayHangman(IncorrectGuesses);
 
                 if (!char.TryParse(Console.ReadLine(), out char playerGuess)) // makes the player reenter a char if it doesn't parse to a char
                 {
                     Console.WriteLine("\n");
                     Console.Clear();
+                    IncorrectGuesses++;
+                    display.DisplayHangman(IncorrectGuesses);
                 }
                 else
                 {
@@ -47,16 +50,10 @@ namespace HangmanProject
                             resultArray[j] = playerGuess;
                             //correctIndex[j] = true;
                         }
-                        else
-                        {
-                            IncorrectGuesses++;
-                            
-                        }
                     }
                     display.UpdateBlanks(resultArray);
                     display.AllPlayerGuesses(playerGuess);
                     //Console.WriteLine(resultArray);
-
                     if (array.SequenceEqual(resultArray))
                     {
                         Console.Clear();
@@ -113,7 +110,63 @@ namespace HangmanProject
             }
         }
 
-        //public DisplayHanger() { 
+        public void DisplayHangman(int incorrectGuesses)
+        {
+            switch (incorrectGuesses)
+            {
+                case 0:
+                    break;
+
+                case 1:
+                    displayHanger();
+                    break;
+
+                case 2:
+                    displayHanger();
+                    displayHead();
+                    break;
+
+                case 3:
+                    displayHanger();
+                    displayHead();
+                    displayBody();
+                    break;
+
+                case 4:
+                    displayHanger();
+                    displayHead();
+                    displayBody();
+                    displayLeftArm();
+                    break;
+
+                case 5:
+                    displayHanger();
+                    displayHead();
+                    displayBody();
+                    displayLeftArm();
+                    displayRightArm();
+                    break;
+
+                case 6:
+                    displayHanger();
+                    displayHead();
+                    displayBody();
+                    displayLeftArm();
+                    displayRightArm();
+                    displayLeftLeg();
+                    break;
+
+                case 7:
+                    displayHanger();
+                    displayHead();
+                    displayBody();
+                    displayLeftArm();
+                    displayRightArm();
+                    displayLeftLeg();
+                    displayRightLeg();
+                    break;
+            }
+        }
         public void displayHanger()
         {
             WriteAt("O", 1, 3);
