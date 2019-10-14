@@ -1,0 +1,11 @@
+C:\Users\Chris\source\repos\MyHangMan\MyHangMan\bin\Debug\netcoreapp3.0\MyHangMan.exe
+C:\Users\Chris\source\repos\MyHangMan\MyHangMan\bin\Debug\netcoreapp3.0\MyHangMan.deps.json
+C:\Users\Chris\source\repos\MyHangMan\MyHangMan\bin\Debug\netcoreapp3.0\MyHangMan.runtimeconfig.json
+C:\Users\Chris\source\repos\MyHangMan\MyHangMan\bin\Debug\netcoreapp3.0\MyHangMan.runtimeconfig.dev.json
+C:\Users\Chris\source\repos\MyHangMan\MyHangMan\bin\Debug\netcoreapp3.0\MyHangMan.dll
+C:\Users\Chris\source\repos\MyHangMan\MyHangMan\bin\Debug\netcoreapp3.0\MyHangMan.pdb
+C:\Users\Chris\source\repos\MyHangMan\MyHangMan\obj\Debug\netcoreapp3.0\MyHangMan.csprojAssemblyReference.cache
+C:\Users\Chris\source\repos\MyHangMan\MyHangMan\obj\Debug\netcoreapp3.0\MyHangMan.AssemblyInfoInputs.cache
+C:\Users\Chris\source\repos\MyHangMan\MyHangMan\obj\Debug\netcoreapp3.0\MyHangMan.AssemblyInfo.cs
+C:\Users\Chris\source\repos\MyHangMan\MyHangMan\obj\Debug\netcoreapp3.0\MyHangMan.dll
+C:\Users\Chris\source\repos\MyHangMan\MyHangMan\obj\Debug\netcoreapp3.0\MyHangMan.pdb
