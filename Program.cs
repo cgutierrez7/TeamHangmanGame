@@ -14,7 +14,7 @@ namespace HangmanProject
             Console.Clear();
 
             Display display = new Display();
-
+            int IncorrectGuesses = 0;
             //DisplayHanger displayHanger1 = new DisplayHanger();
             //displayHanger1.displayHanger();
 
@@ -47,21 +47,29 @@ namespace HangmanProject
                             resultArray[j] = playerGuess;
                             //correctIndex[j] = true;
                         }
+                        else
+                        {
+                            IncorrectGuesses++;
+                            
+                        }
                     }
                     display.UpdateBlanks(resultArray);
                     display.AllPlayerGuesses(playerGuess);
                     //Console.WriteLine(resultArray);
 
                     if (array.SequenceEqual(resultArray))
+                    {
+                        Console.Clear();
+                        display.UpdateBlanks(resultArray);
+                        display.AllPlayerGuesses(playerGuess);
+                        Console.ReadLine();
                         break;
+                    }
                     Console.Clear();
                 }
                 //Console.WriteLine(array.SequenceEqual(resultArray));   
             }
-
         }
-
-
     }
 
     class Display
@@ -105,15 +113,9 @@ namespace HangmanProject
             }
         }
 
-
-
-
-
-
         //public DisplayHanger() { 
         public void displayHanger()
         {
-
             WriteAt("O", 1, 3);
             WriteAt("O", 1, 4);
             WriteAt("O", 1, 5);
@@ -148,10 +150,7 @@ namespace HangmanProject
             WriteAt("O", 5, 3);
             WriteAt("O", 6, 3);
             WriteAt("O", 6, 3);
-
-
         }
-
 
         public void displayHead()
         {
@@ -165,9 +164,6 @@ namespace HangmanProject
             WriteAt("O", 7, 5);
             WriteAt("O", 7, 6);
         }
-
-
-
 
         public void displayBody()
         {
@@ -183,9 +179,6 @@ namespace HangmanProject
             WriteAt("O", 6, 16);
         }
 
-
-
-
         public void displayLeftArm()
         {
             WriteAt("O", 5, 10);
@@ -193,18 +186,11 @@ namespace HangmanProject
 
         }
 
-
-
-
         public void displayRightArm()
         {
             WriteAt("O", 7, 10);
             WriteAt("O", 8, 10);
-
         }
-
-
-
 
         public void displayLeftLeg()
         {
@@ -212,9 +198,6 @@ namespace HangmanProject
             WriteAt("O", 5, 18);
             WriteAt("O", 5, 19);
             WriteAt("O", 5, 20);
-
-
-
         }
 
         public void displayRightLeg()
@@ -227,8 +210,6 @@ namespace HangmanProject
 
         protected static int origRow;
         protected static int origCol;
-
-
 
         public static void WriteAt(string s, int x, int y)
         {
