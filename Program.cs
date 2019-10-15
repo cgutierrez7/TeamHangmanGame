@@ -14,14 +14,8 @@ namespace HangmanProject
             Console.Clear();
 
             Display display = new Display();
-            int IncorrectGuesses = 0;
-            //DisplayHanger displayHanger1 = new DisplayHanger();
-            //displayHanger1.displayHanger();
 
             // this was inspired by https://www.sanfoundry.com/csharp-programs-gaming-hangman/
-
-            //for (int i = 0; i < array.Length; i++) // autofills with *
-            //    resultArray[i] = '*';
 
             while (true) // loops until win or loss condition is met
             {
@@ -30,30 +24,24 @@ namespace HangmanProject
                 Console.WriteLine();
                 Console.Write("\t\t\t\t");
                 display.AllPlayerGuesses();
-                display.DisplayHangman(IncorrectGuesses);
 
                 if (!char.TryParse(Console.ReadLine(), out char playerGuess)) // makes the player reenter a char if it doesn't parse to a char
                 {
                     Console.WriteLine("\n");
                     Console.Clear();
-                    IncorrectGuesses++;
-                    display.DisplayHangman(IncorrectGuesses);
                 }
                 else
                 {
-                    //bool[] correctIndex = new bool[array.Length];
-
                     for (int j = 0; j < array.Length; j++) // checks user input against the mystery word
                     {
                         if (playerGuess == array[j]) // sets the corresponding array space to the letter if they match
                         {
                             resultArray[j] = playerGuess;
-                            //correctIndex[j] = true;
                         }
                     }
                     display.UpdateBlanks(resultArray);
                     display.AllPlayerGuesses(playerGuess);
-                    //Console.WriteLine(resultArray);
+
                     if (array.SequenceEqual(resultArray))
                     {
                         Console.Clear();
@@ -64,24 +52,12 @@ namespace HangmanProject
                     }
                     Console.Clear();
                 }
-                //Console.WriteLine(array.SequenceEqual(resultArray));   
             }
         }
     }
 
     class Display
     {
-        ////Displays blanks for each letter in userIn
-        //public void WordBlanks(char[] userIn)
-        //{
-        //    //int WordLength = userIn.Length;
-        //    int BlankPosition = 0;
-        //    foreach (char letter in userIn)
-        //    {
-        //        WriteAt("_ ", BlankPosition + 20, 3);
-        //        BlankPosition += 2;
-        //    }
-        //}
         string PlayerGuesses = "";
         //Displays Previous Guesses
         public void AllPlayerGuesses()
@@ -167,6 +143,7 @@ namespace HangmanProject
                     break;
             }
         }
+
         public void displayHanger()
         {
             WriteAt("O", 1, 3);
@@ -284,9 +261,6 @@ namespace HangmanProject
     {
         public static void WinOrLose(char[] secretWord, char[] guessedLetters)
         {
-
-
-
             if (secretWord == guessedLetters)
             {
                 Console.WriteLine("WIN");
