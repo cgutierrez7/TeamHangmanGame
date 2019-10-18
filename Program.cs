@@ -12,24 +12,26 @@ namespace HangmanProject
             char[] array = userIn.ToCharArray();
             char[] resultArray = new char[array.Length]; // making a new array with the same size as the words
             Console.Clear();
-
+            int incorrect = 0;
+            bool failFlag = false;
             Display display = new Display();
-
-            //DisplayHanger displayHanger1 = new DisplayHanger();
-            //displayHanger1.displayHanger();
-
+            BooleanWin booleanWin = new BooleanWin();
             // this was inspired by https://www.sanfoundry.com/csharp-programs-gaming-hangman/
-
-            //for (int i = 0; i < array.Length; i++) // autofills with *
-            //    resultArray[i] = '*';
 
             while (true) // loops until win or loss condition is met
             {
+
                 Console.Write($"Please enter a letter:\t\t"); //Changed this to Write from WriteLine
                 display.UpdateBlanks(resultArray);
                 Console.WriteLine();
+
                 Console.Write("\t\t\t\t");
                 display.AllPlayerGuesses();
+                DrawHangman();
+                if (incorrect == 6)
+                {
+                    break;
+                }
 
                 if (!char.TryParse(Console.ReadLine(), out char playerGuess)) // makes the player reenter a char if it doesn't parse to a char
                 {
@@ -38,46 +40,102 @@ namespace HangmanProject
                 }
                 else
                 {
-                    //bool[] correctIndex = new bool[array.Length];
-
                     for (int j = 0; j < array.Length; j++) // checks user input against the mystery word
                     {
                         if (playerGuess == array[j]) // sets the corresponding array space to the letter if they match
                         {
                             resultArray[j] = playerGuess;
-                            //correctIndex[j] = true;
                         }
                     }
-                    display.UpdateBlanks(resultArray);
-                    display.AllPlayerGuesses(playerGuess);
-                    //Console.WriteLine(resultArray);
+                    for (int j = 0; j < array.Length; j++)
+                    {
+                        if (playerGuess == array[j])
+                        {
+                            failFlag = false;
+                            break;
+                        }
+                        else
+                        {
+                            failFlag = true;
+                        }
 
-                    if (array.SequenceEqual(resultArray))
-                        break;
+                    }
+
+                    //display.UpdateBlanks(resultArray);
+                    display.AllPlayerGuesses(playerGuess);
                     Console.Clear();
                 }
-                //Console.WriteLine(array.SequenceEqual(resultArray));   
+                if (booleanWin.WinOrLose(resultArray, array) == true)
+                    return;
             }
+            Console.Clear();
+            Console.Write("You lose");
+            Console.Write("\t\t\t");
+            display.UpdateBlanks(resultArray);
+            Console.WriteLine();
+            Console.Write("\t\t\t\t");
+            display.AllPlayerGuesses();
+            DrawHangman();
+            Console.ReadKey();
 
+            void DrawHangman()
+            {
+                if (failFlag == true)
+                {
+                    incorrect++;
+                }
+                if (incorrect == 1)
+                {
+                    display.displayHanger();
+                    display.displayHead();
+                }
+                else if (incorrect == 2)
+                {
+                    display.displayHanger();
+                    display.displayHead();
+                    display.displayBody();
+                }
+                else if (incorrect == 3)
+                {
+                    display.displayHanger();
+                    display.displayHead();
+                    display.displayBody();
+                    display.displayLeftArm();
+                }
+                else if (incorrect == 4)
+                {
+                    display.displayHanger();
+                    display.displayHead();
+                    display.displayBody();
+                    display.displayLeftArm();
+                    display.displayRightArm();
+                }
+                else if (incorrect == 5)
+                {
+                    display.displayHanger();
+                    display.displayHead();
+                    display.displayBody();
+                    display.displayLeftArm();
+                    display.displayRightArm();
+                    display.displayLeftLeg();
+                }
+                else if (incorrect == 6)
+                {
+                    display.displayHanger();
+                    display.displayHead();
+                    display.displayBody();
+                    display.displayLeftArm();
+                    display.displayRightArm();
+                    display.displayLeftLeg();
+                    display.displayRightLeg();
+                }
+            }
         }
-
-
     }
 
     class Display
     {
-        ////Displays blanks for each letter in userIn
-        //public void WordBlanks(char[] userIn)
-        //{
-        //    //int WordLength = userIn.Length;
-        //    int BlankPosition = 0;
-        //    foreach (char letter in userIn)
-        //    {
-        //        WriteAt("_ ", BlankPosition + 20, 3);
-        //        BlankPosition += 2;
-        //    }
-        //}
-        string PlayerGuesses = "";
+        public string PlayerGuesses = "";
         //Displays Previous Guesses
         public void AllPlayerGuesses()
         {
@@ -106,11 +164,6 @@ namespace HangmanProject
         }
 
 
-
-
-
-
-        //public DisplayHanger() { 
         public void displayHanger()
         {
 
@@ -152,7 +205,6 @@ namespace HangmanProject
 
         }
 
-
         public void displayHead()
         {
             WriteAt("O", 5, 4);
@@ -165,9 +217,6 @@ namespace HangmanProject
             WriteAt("O", 7, 5);
             WriteAt("O", 7, 6);
         }
-
-
-
 
         public void displayBody()
         {
@@ -183,18 +232,12 @@ namespace HangmanProject
             WriteAt("O", 6, 16);
         }
 
-
-
-
         public void displayLeftArm()
         {
             WriteAt("O", 5, 10);
             WriteAt("O", 4, 10);
 
         }
-
-
-
 
         public void displayRightArm()
         {
@@ -203,16 +246,12 @@ namespace HangmanProject
 
         }
 
-
-
-
         public void displayLeftLeg()
         {
             WriteAt("O", 5, 17);
             WriteAt("O", 5, 18);
             WriteAt("O", 5, 19);
             WriteAt("O", 5, 20);
-
 
 
         }
@@ -227,8 +266,6 @@ namespace HangmanProject
 
         protected static int origRow;
         protected static int origCol;
-
-
 
         public static void WriteAt(string s, int x, int y)
         {
@@ -248,19 +285,17 @@ namespace HangmanProject
 
     class BooleanWin
     {
-        public static void WinOrLose(char[] secretWord, char[] guessedLetters)
+        public bool WinOrLose(char[] array, char[] resultArray)
         {
-
-
-
-            if (secretWord == guessedLetters)
+            if (array.SequenceEqual(resultArray))
             {
-                Console.WriteLine("WIN");
+                Console.Write("YOU WIN!");
+                Console.Write("\t\t\t");
+                Console.Write(string.Join(" ", array));
+                Console.ReadKey();
+                return true;
             }
-            else
-            {
-                Console.WriteLine("Try again");
-            }
+            return false;
         }
     }
 }
